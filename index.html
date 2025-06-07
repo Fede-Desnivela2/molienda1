@@ -1,0 +1,1669 @@
+<!DOCTYPE html>
+<html lang='es'>
+<head>
+    <meta charset='UTF-8' />
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'>
+    <title>TRT-Series 601</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            /* Applying dark theme base */
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            margin: 0;
+            padding: 0;
+            background-color: #1e1e1e;
+            color: #e0e0e0;
+            -webkit-tap-highlight-color: transparent;
+            line-height: 1.6;
+        }
+
+        h1, h2 {
+            color: #6fa8dc; /* Modern light blue for main headings */
+        }
+
+        h1 {
+            font-size: 1.8em;
+            margin-bottom: 0.5em;
+        }
+
+        h2 {
+            font-size: 1.2em;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        h3 {
+            font-size: 1.0em; /* Slightly increased contrast for h3 */
+            color: #cccccc; /* Light gray for sub-headings */
+            margin-top: 15px;
+            margin-bottom: 5px;
+            border-bottom: 1px solid #444; /* Subtle dark border */
+            padding-bottom: 3px;
+        }
+
+        .container {
+            background-color: #2b2b2b;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            max-width: 700px;
+            margin: 20px auto;
+        }
+
+        .control-group {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #444;
+            border-radius: 6px;
+            background-color: #333333;
+        }
+
+        /* Improved Button Styles for 3D effect */
+        button, .button-link {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 18px; /* Slightly more horizontal padding */
+            border: none;
+            border-bottom: 3px solid rgba(0, 0, 0, 0.25); /* Darker bottom border for depth */
+            border-radius: 6px; /* Slightly more rounded corners */
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex; /* For easy icon and text alignment */
+            align-items: center; /* Vertically center content (icon and text) */
+            justify-content: center; /* Horizontally center content */
+            margin: 5px 3px;
+            font-size: 0.9em;
+            font-weight: 500;
+            text-align: center;
+            text-shadow: 0 1px 1px rgba(0,0,0,0.2); /* Subtle text shadow */
+            transition: background-color 0.2s ease-in-out, transform 0.15s ease, box-shadow 0.2s ease, border-bottom-width 0.15s ease;
+            box-shadow: 0 2px 2px rgba(0,0,0,0.1), 0 4px 5px rgba(0,0,0,0.08); /* More elaborate shadow */
+        }
+
+        button:hover, .button-link:hover {
+            background-color: #005cb3; /* Darker blue on hover */
+            transform: translateY(-2px); /* Lift up slightly more */
+            box-shadow: 0 4px 5px rgba(0,0,0,0.15), 0 8px 10px rgba(0,0,0,0.1); /* More pronounced shadow */
+        }
+
+        button:active, .button-link:active {
+            transform: translateY(1px); /* Sink button */
+            box-shadow: inset 0 2px 3px rgba(0,0,0,0.25); /* Inner shadow */
+            border-bottom-width: 1px; /* Reduce bottom border on press */
+            background-color: #004a8c; /* Slightly darker on press */
+        }
+
+        .status {
+            font-weight: bold;
+        }
+
+        .status-on {
+            color: #4CAF50;
+        } /* Bright green */
+        .status-off {
+            color: #F44336;
+        } /* Bright red */
+        .status-full {
+            color: #2196F3;
+        } /* Bright blue */
+        .status-empty {
+            color: #9E9E9E;
+        } /* Gray */
+
+        input[type='range'] {
+            width: calc(100% - 20px);
+            margin-bottom: 10px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 0.9em;
+            color: #bdbdbd;
+        } /* Lighter label color */
+
+        input[type='number'], input[type='text'], input[type='password'], select {
+            /* Also apply to select */
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #555;
+            border-radius: 4px;
+            width: calc(100% - 20px);
+            background-color: #3f3f3f; /* Dark background for inputs */
+            color: #e0e0e0; /* Light text for inputs */
+        }
+
+        form button {
+            margin-top: 10px;
+        } /* This style is generic, the ones above will override it */
+
+        /* Adjustments for buttons with specific colors to maintain 3D effect */
+        .button-green { background-color: #28a745 !important; border-bottom-color: #1c6c2e !important; }
+        .button-green:hover { background-color: #218838 !important; }
+        .button-green:active { background-color: #1e7e34 !important; }
+
+        .button-red { background-color: #dc3545 !important; border-bottom-color: #a71d2a !important; }
+        .button-red:hover { background-color: #c82333 !important; }
+        .button-red:active { background-color: #b21f2d !important; }
+
+        .button-yellow { background-color: #ffc107 !important; color: black !important; border-bottom-color: #c79500 !important; text-shadow: 0 1px 1px rgba(255,255,255,0.2); }
+        .button-yellow:hover { background-color: #e0a800 !important; }
+        .button-yellow:active { background-color: #d39e00 !important; }
+
+        .button-grey { background-color: #6c757d !important; border-bottom-color: #494f54 !important; }
+        .button-grey:hover { background-color: #5a6268 !important; }
+        .button-grey:active { background-color: #545b62 !important; }
+
+        .button-teal { background-color: #17a2b8 !important; border-bottom-color: #0f6674 !important; }
+        .button-teal:hover { background-color: #138496 !important; }
+        .button-teal:active { background-color: #117a8b !important; }
+
+        .button-orange { background-color: #fd7e14 !important; color: white !important; border-bottom-color: #c4610b !important; }
+        .button-orange:hover { background-color: #e67e22 !important; }
+        .button-orange:active { background-color: #d96e1c !important; }
+
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .button-group .button-link {
+            flex-grow: 1; /* Allows buttons to expand */
+        }
+
+        /* For groups of 3 buttons, we might want the third to take full width if alone on a line */
+        .button-group .button-link:nth-child(3):last-child {
+            flex-basis: 100%; /* If it's the 3rd and last, take full width */
+        }
+
+        /* Styles for Login Page */
+        .login-page-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 80vh;
+        }
+
+        .login-box {
+            max-width: 400px;
+            padding: 25px;
+            background-color: #2b2b2b; /* Dark background for login box */
+            border: 1px solid #444; /* Dark border */
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3); /* Improved shadow */
+            text-align: center;
+        }
+
+        .login-box h2 {
+            margin-bottom: 20px;
+            color: #6fa8dc;
+        } /* Consistent title color */
+
+        .login-box input[type='text'],
+        .login-box input[type='password'] {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border: 1px solid #555; /* Dark border for login inputs */
+            border-radius: 4px;
+            background-color: #3f3f3f; /* Dark background for login inputs */
+            color: #e0e0e0; /* Light text for login inputs */
+        }
+
+        .login-box button {
+            width: 100%;
+            padding: 10px;
+            font-size: 1em;
+            margin-top: 10px;
+        }
+
+        .step-block {
+            border: 1px solid #007bff; /* Keep blue border to highlight steps */
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            background-color: #383838; /* Dark background for step blocks */
+        }
+
+        .step-block h4 {
+            margin-top: 0;
+            color: #6fa8dc;
+        } /* Step heading color, same as h1/h2 */
+
+        .param-group {
+            margin-top: 10px;
+            padding: 8px;
+            border: 1px dashed #555; /* Dashed dark border */
+            border-radius: 3px;
+        }
+
+        .param-group label {
+            font-weight: normal;
+            font-size: 0.85em;
+            color: #bdbdbd;
+        } /* Lighter labels within param-group */
+
+        /* Styles for routine list items */
+        .routine-list-item {
+            margin-bottom: 10px;
+            padding: 12px; /* Increased padding */
+            border: 1px solid #4f4f4f; /* Slightly lighter border than control-group */
+            border-radius: 6px; /* Consistent rounding */
+            background-color: #3a3a3a; /* Darker background for item */
+            color: #c0c0c0; /* General text color within item */
+        }
+
+        .routine-list-item strong {
+            /* For the routine name itself */
+            color: #e8e8e8; /* Brighter white for routine name */
+            font-size: 1.05em;
+        }
+
+        .routine-list-item .button-link {
+            margin-left: 10px;
+        } /* Spacing for buttons */
+
+        /* Status text in routine status group */
+        .routine-status-group p {
+            color: #d0d0d0;
+            margin-bottom: 8px;
+        }
+
+        .routine-status-group p strong {
+            color: #e0e0e0;
+        }
+
+        .routine-status-group p span {
+            color: #79c0ff; /* Light blue for dynamic values */
+            font-weight: normal;
+        }
+
+        #activeRoutineName {
+            color: #ffffff;
+            font-weight: bold;
+        } /* Make active routine name stand out */
+
+        /* Updated styles for Extractor Display */
+        .extractor-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); /* Made cards even smaller */
+            gap: 6px; /* Reduced gap further for more compactness */
+            margin-top: 15px;
+        }
+
+        .extractor-card {
+            padding: 5px; /* Reduced padding inside cards */
+            border: 1px solid #4CAF50;
+            border-radius: 6px;
+            background-color: #2e7d32;
+            color: #e8f5e9;
+            text-align: center;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.2); /* Smaller shadow */
+            transition: transform 0.1s ease, box-shadow 0.1s ease;
+            cursor: pointer;
+            height: 80px; /* Fixed height for more consistent alignment */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; /* Distribute content vertically */
+        }
+
+        .extractor-card:hover {
+            transform: translateY(-1px); /* Less lift on hover */
+            box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+        }
+
+        .extractor-card strong {
+            display: block;
+            font-size: 0.8em; /* Smaller font for name */
+            margin-bottom: 2px; /* Reduced space below name */
+            color: #c8e6c9;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            line-height: 1.2; /* Adjust line height for compactness */
+        }
+
+        .extractor-card .value-row {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 1px; /* Further reduced margin */
+        }
+
+        .extractor-card .value-label {
+            font-size: 0.65em; /* Even smaller label font */
+            color: #a5d6a7;
+            margin-bottom: 0;
+            line-height: 1; /* Compact line height */
+        }
+
+        .extractor-card .value-display {
+            font-size: 0.9em; /* Smaller value font */
+            font-weight: bold;
+            color: #ffffff;
+            line-height: 1.1; /* Compact line height */
+        }
+
+        .extractor-card.warning {
+            border-color: #ffb300;
+            background-color: #e65100;
+            color: #fff3e0;
+        }
+
+        .extractor-card.critical {
+            border-color: #d32f2f;
+            background-color: #b71c1c;
+            color: #ffebee;
+        }
+
+        /* Styles for Extractor Configuration Page */
+        #extractor-config-page .control-group {
+            background-color: #3a3a3a;
+            border-color: #007bff;
+        }
+
+        #extractor-config-page label {
+            margin-bottom: 10px;
+            font-size: 1em;
+            color: #e0e0e0;
+        }
+
+        #extractor-config-page input[type="text"],
+        #extractor-config-page input[type="number"] {
+            margin-bottom: 15px;
+        }
+
+        /* LCD Display styles */
+        .lcd-display-group {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #444;
+            border-radius: 6px;
+            background-color: #333333;
+            text-align: center;
+        }
+
+        .lcd-display {
+            background-color: #000;
+            border: 2px solid #555;
+            border-radius: 4px;
+            padding: 15px 25px; /* Increased padding */
+            margin: 15px auto;
+            width: fit-content;
+            font-family: 'Digital-7', monospace;
+            font-size: 3.5em; /* Significantly larger font size */
+            color: #0f0;
+            text-shadow: 0 0 8px #0f0, 0 0 15px #0f0; /* More intense glow effect */
+            letter-spacing: 3px; /* Increased letter spacing */
+            min-width: 220px; /* Wider to accommodate more digits */
+            text-align: right;
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #2b2b2b;
+            margin: auto;
+            padding: 25px;
+            border: 1px solid #444;
+            border-radius: 8px;
+            width: 80%;
+            max-width: 400px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            animation-name: animatetop;
+            animation-duration: 0.4s
+        }
+
+        @keyframes animatetop {
+            from {top: -300px; opacity: 0}
+            to {top: 0; opacity: 1}
+        }
+
+        .modal-content h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-content .param-group {
+            margin-bottom: 15px;
+            border: none;
+            padding: 0;
+        }
+
+        .modal-content label {
+            margin-bottom: 8px;
+        }
+
+        .modal-content input[type="number"], .modal-content select {
+            width: calc(100% - 16px);
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        /* Custom Message Box */
+        .custom-message-box {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #333;
+            color: #eee;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            z-index: 1001;
+            font-size: 1.1em;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+        .custom-message-box.show {
+            opacity: 1;
+            display: block;
+        }
+
+        /* Simulation Page Specific Styles */
+        #simulation-page {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        #simulation-canvas {
+            border: 1px solid #666;
+            background-color: #222;
+            width: 100%;
+            max-width: 600px; /* Limit width to keep it manageable */
+            height: 400px; /* Fixed height for now, can be dynamic */
+            margin: 20px auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+        }
+
+        .svg-component {
+            fill: #6c757d; /* Default component color (grey) */
+            stroke: #444;
+            stroke-width: 2;
+            transition: fill 0.3s ease;
+        }
+
+        .svg-component.active {
+            fill: #4CAF50; /* Green when active */
+        }
+        .svg-component.warning-level {
+            fill: #ffc107; /* Orange/Yellow for warning fill levels */
+        }
+        .svg-component.critical-level {
+            fill: #dc3545; /* Red for critical fill levels */
+        }
+        .svg-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            fill: #e0e0e0;
+            user-select: none;
+        }
+
+        .component-button-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            justify-content: center;
+            margin-top: 10px;
+        }
+        .component-button-group button {
+            padding: 6px 10px;
+            font-size: 0.8em;
+            margin: 2px;
+        }
+
+        .component-status-display {
+            font-size: 0.9em;
+            color: #ccc;
+            margin-top: 5px;
+        }
+        .component-status-display .status-on { color: #4CAF50; }
+        .component-status-display .status-off { color: #F44336; }
+
+    </style>
+</head>
+<body>
+    <div class='container'>
+        <div style='display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; padding-bottom:10px; border-bottom: 1px solid #444;'>
+            <h1>TRT-Series 601</h1>
+            <div id='auth_status_container'>
+                <a href='/login' class='button-link'>
+                    <svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' stroke-width='2' stroke='currentColor' fill='none' stroke-linecap='round' stroke-linejoin='round' style='vertical-align: middle; margin-right: 6px;'>
+                        <path stroke='none' d='M0 0h24v24H0z' fill='none'/>
+                        <path d='M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2' />
+                        <path d='M20 12h-13l3 -3m0 6l-3 -3' />
+                    </svg>
+                    Iniciar Sesión
+                </a>
+            </div>
+        </div>
+
+        <!-- Main Control Page -->
+        <div id="main-control-page">
+            <!-- Motor Status Section -->
+            <div class='control-group'>
+                <h2>Estado de Motores</h2>
+                <div class='extractor-grid' id='extractor-info-display'>
+                    <!-- Extractor data will be injected here with JavaScript -->
+                </div>
+            </div>
+
+            <!-- LCD Display and Tare control -->
+            <div class="lcd-display-group control-group">
+                <h2>Peso Actual</h2>
+                <div class="lcd-display" id="weightDisplay">0.0 kg</div>
+                <div class="button-group" style="justify-content: center;">
+                    <button class="button-link button-orange" id="tareButton">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" style='vertical-align: middle; margin-right: 6px;'>
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                            <path d="M6 12l12 0" />
+                            <path d="M6 9l12 0" />
+                            <path d="M6 15l12 0" />
+                            <path d="M4 12c.76 -.116 1.48 -.403 2.11 -1.41l.89 -1.41" />
+                            <path d="M4 12c.76 .116 1.48 .403 2.11 1.41l.89 1.41" />
+                        </svg>
+                        Tara
+                    </button>
+                    <button class="button-link button-green" onclick="showStartRoutineModal()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" style='vertical-align: middle; margin-right: 6px;'>
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                            <path d="M7 4v16l13 -8z" />
+                        </svg>
+                        Iniciar Rutina
+                    </button>
+                </div>
+            </div>
+
+
+            <div class="button-group" style="justify-content: center;">
+                <button class="button-link button-teal" id="showFormulasButton">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" style='vertical-align: middle; margin-right: 6px;'>
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2" />
+                        <path d="M9 3m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z" />
+                        <path d="M10 12h4" />
+                        <path d="M10 16h4" />
+                    </svg>
+                    Fórmulas
+                </button>
+                <button class="button-link button-blue" id="showSimulationButton">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" style='vertical-align: middle; margin-right: 6px;'>
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M18 16v-1a2 2 0 0 0 -2 -2h-5a2 2 0 0 0 -2 2v1" />
+                        <path d="M6 8a6 6 0 1 0 12 0a6 6 0 1 0 -12 0" />
+                    </svg>
+                    Simular Rutina
+                </button>
+            </div>
+        </div>
+
+        <!-- Extractor Configuration Page (initially hidden) -->
+        <div id="extractor-config-page" style="display:none;">
+            <div class='control-group'>
+                <h2>Configuración de Extractor: <span id="config-extractor-name"></span></h2>
+                <div class="param-group">
+                    <label for="config-ingredient-input">Contenido:</label>
+                    <input type="text" id="config-ingredient-input" placeholder="Nombre del ingrediente (ej: Maíz)" />
+                </div>
+                <div class="param-group">
+                    <label for="config-inertia-input">Inercia (kg):</label>
+                    <input type="number" id="config-inertia-input" placeholder="0" min="0" value="0" />
+                </div>
+                <div class="button-group" style="justify-content: center; margin-top: 20px;">
+                    <button class="button-link button-green" id="save-config-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" style='vertical-align: middle; margin-right: 6px;'>
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                            <path d="M5 12l5 5l10 -10" />
+                        </svg>
+                        Guardar Configuración
+                    </button>
+                    <button class="button-link button-grey" id="backToMainFromConfigButton">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" style='vertical-align: middle; margin-right: 6px;'>
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                            <path d="M5 12l14 0" />
+                            <path d="M5 12l6 6" />
+                            <path d="M5 12l6 -6" />
+                        </svg>
+                        Volver
+                    </button>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Formulas Page (initially hidden) -->
+        <div id="formulas-page" style="display:none;">
+            <div class='control-group'>
+                <h2>Gestión de Fórmulas</h2>
+                <div class="param-group">
+                    <label for="formulaNameInput">Nombre de fórmula:</label>
+                    <input type="text" id="formulaNameInput" placeholder="Ej: Molienda Fina" />
+                </div>
+
+                <div id="formulas-form-container">
+                    <!-- The ingredient and kilogram fields will be injected here -->
+                </div>
+
+                <div class="button-group" style="justify-content: center; margin-top: 20px;">
+                    <button class="button-link button-green" id="saveFormulaButton">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" style='vertical-align: middle; margin-right: 6px;'>
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                            <path d="M6 4h10l4 4v10a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2" />
+                            <path d="M12 14m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+                            <path d="M14 4l0 4l-6 0l0 -4" />
+                        </svg>
+                        Guardar Fórmula
+                    </button>
+                    <button class="button-link button-grey" id="backToMainFromFormulasButton">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" style='vertical-align: middle; margin-right: 6px;'>
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                            <path d="M5 12l14 0" />
+                            <path d="M5 12l6 6" />
+                            <path d="M5 12l6 -6" />
+                        </svg>
+                        Volver
+                    </button>
+                </div>
+            </div>
+
+            <div class='control-group'>
+                <h2>Listado de Fórmulas Guardadas</h2>
+                <div id="saved-formulas-list">
+                    <!-- Saved formulas will be injected here -->
+                    <p style="text-align: center; color: #aaa;">No hay fórmulas guardadas.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Simulation Page (initially hidden) -->
+        <div id="simulation-page" style="display:none;">
+            <div class='control-group'>
+                <h2>Simulación de Planta de Molienda</h2>
+                <div id="simulation-canvas-container">
+                    <svg id="simulation-canvas" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid meet">
+                        <!-- Background/Floor -->
+                        <rect x="0" y="0" width="600" height="400" fill="#222"/>
+
+                        <!-- Extractor Silos (Simplified as small rectangles for extractors) -->
+                        <!-- Row 1 (Ext. S1-S6) -->
+                        <rect x="10" y="20" width="40" height="40" rx="3" ry="3" class="svg-component" id="ext-silo-0"/>
+                        <text x="30" y="70" text-anchor="middle" class="svg-label">S1</text>
+                        <rect x="60" y="20" width="40" height="40" rx="3" ry="3" class="svg-component" id="ext-silo-1"/>
+                        <text x="80" y="70" text-anchor="middle" class="svg-label">S2</text>
+                        <rect x="110" y="20" width="40" height="40" rx="3" ry="3" class="svg-component" id="ext-silo-2"/>
+                        <text x="130" y="70" text-anchor="middle" class="svg-label">S3</text>
+                        <rect x="160" y="20" width="40" height="40" rx="3" ry="3" class="svg-component" id="ext-silo-3"/>
+                        <text x="180" y="70" text-anchor="middle" class="svg-label">S4</text>
+                        <rect x="210" y="20" width="40" height="40" rx="3" ry="3" class="svg-component" id="ext-silo-4"/>
+                        <text x="230" y="70" text-anchor="middle" class="svg-label">S5</text>
+                        <rect x="260" y="20" width="40" height="40" rx="3" ry="3" class="svg-component" id="ext-silo-5"/>
+                        <text x="280" y="70" text-anchor="middle" class="svg-label">S6</text>
+
+                        <!-- Row 2 (Ext. S7-S11) -->
+                        <rect x="10" y="90" width="40" height="40" rx="3" ry="3" class="svg-component" id="ext-silo-6"/>
+                        <text x="30" y="140" text-anchor="middle" class="svg-label">S7</text>
+                        <rect x="60" y="90" width="40" height="40" rx="3" ry="3" class="svg-component" id="ext-silo-7"/>
+                        <text x="80" y="140" text-anchor="middle" class="svg-label">S8</text>
+                        <rect x="110" y="90" width="40" height="40" rx="3" ry="3" class="svg-component" id="ext-silo-8"/>
+                        <text x="130" y="140" text-anchor="middle" class="svg-label">S9</text>
+                        <rect x="160" y="90" width="40" height="40" rx="3" ry="3" class="svg-component" id="ext-silo-9"/>
+                        <text x="180" y="140" text-anchor="middle" class="svg-label">S10</text>
+                        <rect x="210" y="90" width="40" height="40" rx="3" ry="3" class="svg-component" id="ext-silo-10"/>
+                        <text x="230" y="140" text-anchor="middle" class="svg-label">S11</text>
+
+                        <!-- Common pipe from extractors to Balanza (5) - simplified routing-->
+                        <path d="M150,150 L150,200 C150,220 200,220 200,240 L200,280" stroke="#777" stroke-width="2" fill="none"/>
+
+                        <!-- 5: Balanza -->
+                        <polygon points="200,280 400,280 380,350 220,350" class="svg-component" id="component-5"/>
+                        <text x="300" y="315" text-anchor="middle" class="svg-label">Balanza (5)</text>
+                        <text x="300" y="335" text-anchor="middle" class="svg-label" id="balance-weight-display">0.00 kg</text>
+
+                        <!-- 15: Extractor de Balanza (below balanza) -->
+                        <rect x="290" y="350" width="20" height="30" class="svg-component" id="component-15"/>
+                        <text x="300" y="370" text-anchor="middle" class="svg-label">Ext. Balanza (15)</text>
+
+                        <!-- 8: Noria Elevador de Balanza (vertical conveyor) -->
+                        <rect x="100" y="200" width="30" height="150" class="svg-component" id="component-8"/>
+                        <text x="115" y="280" text-anchor="middle" transform="rotate(90 115 280)" class="svg-label">Noria Bal. (8)</text>
+
+                        <!-- Path from Extractor Balanza (15) to Noria Balanza (8) -->
+                        <line x1="300" y1="380" x2="115" y2="380" stroke="#777" stroke-width="2"/>
+                        <line x1="115" y1="380" x2="115" y2="350" stroke="#777" stroke-width="2"/>
+
+                        <!-- 2: Pulmón del Molino (Silo before mill) -->
+                        <rect x="450" y="200" width="80" height="80" rx="5" ry="5" class="svg-component" id="component-2"/>
+                        <text x="490" y="240" text-anchor="middle" class="svg-label">Pulmón Mol. (2)</text>
+
+                        <!-- Path from Noria Balanza (8) to Pulmón Molino (2) -->
+                        <path d="M115,200 L115,180 C115,160 400,160 450,200 L450,200" stroke="#777" stroke-width="2" fill="none"/>
+                        <line x1="115" y1="200" x2="450" y2="200" stroke="#777" stroke-width="2"/>
+
+
+                        <!-- 10: Alimentador de Molino (below Pulmón Molino) -->
+                        <rect x="480" y="280" width="20" height="20" class="svg-component" id="component-10"/>
+                        <text x="490" y="295" text-anchor="middle" class="svg-label">Alim. Mol. (10)</text>
+
+                        <!-- 4: Molino -->
+                        <rect x="450" y="300" width="80" height="50" rx="5" ry="5" class="svg-component" id="component-4"/>
+                        <text x="490" y="325" text-anchor="middle" class="svg-label">Molino (4)</text>
+
+                        <!-- Path from Alimentador Molino (10) to Molino (4) -->
+                        <line x1="490" y1="300" x2="490" y2="310" stroke="#777" stroke-width="2"/>
+
+                        <!-- 7: Elevador del Molino (vertical conveyor) -->
+                        <rect x="350" y="250" width="30" height="150" class="svg-component" id="component-7"/>
+                        <text x="365" y="325" text-anchor="middle" transform="rotate(90 365 325)" class="svg-label">Elev. Mol. (7)</text>
+
+                        <!-- Path from Molino (4) to Elevador Molino (7) -->
+                        <line x1="490" y1="350" x2="365" y2="350" stroke="#777" stroke-width="2"/>
+
+                        <!-- 14: Extractor de Molino (below Molino, feeds Noria Elevador Molino) -->
+                        <rect x="450" y="350" width="20" height="30" class="svg-component" id="component-14"/>
+                        <text x="460" y="370" text-anchor="middle" class="svg-label">Ext. Mol. (14)</text>
+
+                        <!-- 16: Otro extractor de molino (similar to 14) -->
+                        <rect x="510" y="350" width="20" height="30" class="svg-component" id="component-16"/>
+                        <text x="520" y="370" text-anchor="middle" class="svg-label">Ext. Mol. (16)</text>
+
+                        <!-- Paths from extractors 14 and 16 to Elevador Molino (7) -->
+                        <line x1="460" y1="380" x2="365" y2="380" stroke="#777" stroke-width="2"/>
+                        <line x1="520" y1="380" x2="365" y2="380" stroke="#777" stroke-width="2"/>
+
+
+                        <!-- 1: Pulmón antes de la mezcladora (Silo before mixer) -->
+                        <rect x="250" y="20" width="80" height="80" rx="5" ry="5" class="svg-component" id="component-1-pulmon"/>
+                        <text x="290" y="60" text-anchor="middle" class="svg-label">Pulmón Mez. (1)</text>
+
+                        <!-- 11: Permite el paso del pulmón uno a la mezcladora (valve) -->
+                        <circle cx="290" cy="115" r="10" class="svg-component" id="component-11"/>
+                        <text x="290" y="135" text-anchor="middle" class="svg-label">Paso Mez. (11)</text>
+
+                        <!-- Path from Pulmón Mezcladora (1) through Paso Mez. (11) to Mezcladora -->
+                        <line x1="290" y1="100" x2="290" y2="115" stroke="#777" stroke-width="2"/>
+
+
+                        <!-- Mezcladora (represented by a large tank with 3 at the bottom) -->
+                        <polygon points="250,150 350,150 330,230 270,230" class="svg-component" id="mixer-tank"/>
+                        <text x="300" y="190" text-anchor="middle" class="svg-label">Mezcladora</text>
+
+                        <!-- Path from Paso Mezcladora (11) to Mezcladora -->
+                        <line x1="290" y1="125" x2="290" y2="150" stroke="#777" stroke-width="2"/>
+
+
+                        <!-- 3: Abre la mezcladora (valve below mixer) -->
+                        <circle cx="300" cy="235" r="10" class="svg-component" id="component-3"/>
+                        <text x="300" y="255" text-anchor="middle" class="svg-label">Abre Mez. (3)</text>
+
+
+                        <!-- 13: Extractor de Mezcladora -->
+                        <rect x="290" y="260" width="20" height="30" class="svg-component" id="component-13"/>
+                        <text x="300" y="280" text-anchor="middle" class="svg-label">Ext. Mez. (13)</text>
+
+                        <!-- Path from Abre Mezcladora (3) to Extractor Mezcladora (13) -->
+                        <line x1="300" y1="245" x2="300" y2="260" stroke="#777" stroke-width="2"/>
+
+                        <!-- 12: Noria Elevadora de Mezcladora -->
+                        <rect x="180" y="150" width="30" height="150" class="svg-component" id="component-12"/>
+                        <text x="195" y="225" text-anchor="middle" transform="rotate(90 195 225)" class="svg-label">Noria Mez. (12)</text>
+
+                        <!-- Path from Extractor Mezcladora (13) to Noria Mezcladora (12) -->
+                        <line x1="300" y1="290" x2="195" y2="290" stroke="#777" stroke-width="2"/>
+                        <line x1="195" y1="290" x2="195" y2="300" stroke="#777" stroke-width="2"/>
+
+                        <!-- Outputs from Noria Elevador Molino (7) and Noria Mezcladora (12) to discharge -->
+                        <line x1="365" y1="250" x2="550" y2="250" stroke="#777" stroke-width="2"/>
+                        <line x1="195" y1="150" x2="550" y2="150" stroke="#777" stroke-width="2"/>
+                        <text x="575" y="240" text-anchor="middle" class="svg-label">Descarga</text>
+                    </svg>
+                </div>
+                <div class="button-group" style="justify-content: center; margin-top: 20px;">
+                    <button class="button-link button-grey" id="backToMainFromSimulationButton">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" style='vertical-align: middle; margin-right: 6px;'>
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                            <path d="M5 12l14 0" />
+                            <path d="M5 12l6 6" />
+                            <path d="M5 12l6 -6" />
+                        </svg>
+                        Volver
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Modal for Starting Routine -->
+    <div id="startRoutineModal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <h2>Iniciar Rutina de Molienda</h2>
+            <div class="param-group">
+                <label for="selectFormula">Seleccionar Fórmula:</label>
+                <select id="selectFormula" style="width: 100%;">
+                    <!-- Formula options will be loaded here -->
+                </select>
+            </div>
+            <div class="param-group">
+                <label for="targetKilograms">Cantidad de Kilogramos a Producir:</label>
+                <input type="number" id="targetKilograms" placeholder="0" min="0" value="0" />
+            </div>
+            <div class="modal-footer">
+                <button class="button-link button-green" id="startRoutineButton">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" style='vertical-align: middle; margin-right: 6px;'>
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M7 4v16l13 -8z" />
+                    </svg>
+                    Comenzar
+                </button>
+                <button class="button-link button-red" id="cancelRoutineButton">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" style='vertical-align: middle; margin-right: 6px;'>
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M18 6l-12 12" />
+                        <path d="M6 6l12 12" />
+                    </svg>
+                    Cancelar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Message Box -->
+    <div id="customMessageBox" class="custom-message-box"></div>
+
+    <script>
+        // Global array to store extractor data (name and inertia)
+        let extractorIngredients = Array.from({length: 11}, (_, i) => ({
+            name: `Extractor S${i + 1}`,
+            inertia: 0 // Default inertia
+        }));
+
+        // Variable to keep track of which extractor is being edited
+        let currentEditingExtractorId = -1;
+        // Global variable for weight simulation
+        let currentWeight = 0.0;
+        let weightInterval = null; // To store the interval ID for clearing
+        // Global array to store saved formulas
+        let savedFormulas = [];
+        // Define static temperatures for the extractors (expanded to 11)
+        const staticTemperatures = [44, 38, 55, 41, 68, 35, 48, 60, 52, 39, 65];
+        // Define base RPMs for each extractor (expanded to 11)
+        const baseRpmValues = [950, 1020, 880, 1100, 990, 850, 930, 1050, 970, 890, 1000];
+        const NUM_EXTRACTORS = extractorIngredients.length; // Number of extractors
+
+        // State for simulation components
+        const simulationComponents = {
+            // Individual silo extractors
+            'ext-silo-0': { active: false, label: 'Extractor S1', fill: 0 },
+            'ext-silo-1': { active: false, label: 'Extractor S2', fill: 0 },
+            'ext-silo-2': { active: false, label: 'Extractor S3', fill: 0 },
+            'ext-silo-3': { active: false, label: 'Extractor S4', fill: 0 },
+            'ext-silo-4': { active: false, label: 'Extractor S5', fill: 0 },
+            'ext-silo-5': { active: false, label: 'Extractor S6', fill: 0 },
+            'ext-silo-6': { active: false, label: 'Extractor S7', fill: 0 },
+            'ext-silo-7': { active: false, label: 'Extractor S8', fill: 0 },
+            'ext-silo-8': { active: false, label: 'Extractor S9', fill: 0 },
+            'ext-silo-9': { active: false, label: 'Extractor S10', fill: 0 },
+            'ext-silo-10': { active: false, label: 'Extractor S11', fill: 0 },
+
+            // Other system components
+            'component-5': { active: false, label: 'Balanza (5)' },
+            'component-8': { active: false, label: 'Noria Balanza (8)' },
+            'component-15': { active: false, label: 'Extractor Balanza (15)' },
+            'component-7': { active: false, label: 'Elevador Molino (7)' },
+            'component-14': { active: false, label: 'Extractor Molino (14)' },
+            'component-16': { active: false, label: 'Extractor Molino (16)' },
+            'component-10': { active: false, rpm: 0, label: 'Alimentador Molino (10)' },
+            'component-3': { active: false, label: 'Abre Mezcladora (3)' },
+            'component-11': { active: false, label: 'Paso Mezcladora (11)' },
+            'component-12': { active: false, label: 'Noria Mezcladora (12)' },
+            'component-13': { active: false, label: 'Extractor Mezcladora (13)' },
+            'component-1-pulmon': { active: false, label: 'Pulmón Mez. (1)', fill: 0 },
+            'component-2': { active: false, label: 'Pulmón Mol. (2)', fill: 0 },
+            'component-4': { active: false, label: 'Molino (4)'},
+            'mixer-tank': { active: false, label: 'Mezcladora', fill: 0 }
+        };
+
+
+        document.addEventListener('DOMContentLoaded', function() {
+            initApp(); // Initialize the application
+            // Initialize simulation components, mainly their visual state
+            renderSimulationState();
+            // Add buttons for simulation components
+            setupSimulationControls();
+        });
+
+        function initApp() {
+            // Load ingredient names and inertia from localStorage
+            const storedIngredients = localStorage.getItem('extractorIngredients');
+            if (storedIngredients) {
+                // Parse and update existing extractors, also handle new ones if array size increased
+                const loadedIngredients = JSON.parse(storedIngredients);
+                loadedIngredients.forEach((item, index) => {
+                    if (index < NUM_EXTRACTORS) {
+                        // Ensure 'name' and 'inertia' properties exist after parsing
+                        extractorIngredients[index].name = item.name || `Extractor S${index + 1}`;
+                        extractorIngredients[index].inertia = item.inertia !== undefined ? item.inertia : 0;
+                    }
+                });
+            }
+
+            // Load saved formulas from localStorage
+            loadFormulas();
+
+            // Initial update of extractor status
+            updateExtractorStatus();
+            // Update RPM status every 2 seconds for real-time simulation
+            setInterval(updateExtractorStatus, 2000);
+
+            // Start weight simulation
+            startWeightSimulation();
+
+            // Get references to page elements
+            const mainControlPage = document.getElementById('main-control-page');
+            const formulasPage = document.getElementById('formulas-page');
+            const extractorConfigPage = document.getElementById('extractor-config-page');
+            const simulationPage = document.getElementById('simulation-page');
+
+            const showFormulasButton = document.getElementById('showFormulasButton');
+            const showSimulationButton = document.getElementById('showSimulationButton');
+
+            const backToMainFromFormulasButton = document.getElementById('backToMainFromFormulasButton');
+            const backToMainFromConfigButton = document.getElementById('backToMainFromConfigButton');
+            const backToMainFromSimulationButton = document.getElementById('backToMainFromSimulationButton');
+
+            const saveConfigButton = document.getElementById('save-config-button');
+            const configIngredientInput = document.getElementById('config-ingredient-input');
+            const configInertiaInput = document.getElementById('config-inertia-input');
+            const currentExtractorNameForConfig = document.getElementById('config-extractor-name');
+
+            const saveFormulaButton = document.getElementById('saveFormulaButton');
+            const tareButton = document.getElementById('tareButton');
+            const startRoutineModal = document.getElementById('startRoutineModal');
+            const startRoutineButton = document.getElementById('startRoutineButton');
+            const cancelRoutineButton = document.getElementById('cancelRoutineButton');
+
+
+            // Event listener for showing formulas page
+            showFormulasButton.addEventListener('click', function() {
+                mainControlPage.style.display = 'none';
+                formulasPage.style.display = 'block';
+                extractorConfigPage.style.display = 'none';
+                simulationPage.style.display = 'none'; // Ensure simulation page is hidden
+                renderFormulasPage(); // Render formula inputs when navigating to the page
+                renderSavedFormulas(); // Also render saved formulas list
+            });
+
+            // Event listener for showing simulation page
+            showSimulationButton.addEventListener('click', function() {
+                mainControlPage.style.display = 'none';
+                formulasPage.style.display = 'none';
+                extractorConfigPage.style.display = 'none';
+                simulationPage.style.display = 'block';
+                renderSimulationState(); // Initial render of simulation state
+            });
+
+            // Event listener for going back from formulas page to main control page
+            backToMainFromFormulasButton.addEventListener('click', function() {
+                formulasPage.style.display = 'none';
+                mainControlPage.style.display = 'block';
+                extractorConfigPage.style.display = 'none';
+                simulationPage.style.display = 'none';
+            });
+
+            // Event listener for going back from config page to main control page
+            backToMainFromConfigButton.addEventListener('click', function() {
+                extractorConfigPage.style.display = 'none';
+                mainControlPage.style.display = 'block';
+            });
+
+            // Event listener for going back from simulation page to main control page
+            backToMainFromSimulationButton.addEventListener('click', function() {
+                simulationPage.style.display = 'none';
+                mainControlPage.style.display = 'block';
+            });
+
+            // Event listener for saving extractor configuration
+            saveConfigButton.addEventListener('click', function() {
+                saveExtractorConfig(configIngredientInput.value, parseFloat(configInertiaInput.value));
+            });
+
+            // Event listener for saving the formula
+            if (saveFormulaButton) {
+                saveFormulaButton.addEventListener('click', saveFormula);
+            }
+
+            // Event listener for Tare button
+            if (tareButton) {
+                tareButton.addEventListener('click', tareWeight);
+            }
+
+            // Event listeners for Start Routine Modal
+            if (startRoutineButton) {
+                startRoutineButton.addEventListener('click', startRoutine);
+            }
+            if (cancelRoutineButton) {
+                cancelRoutineButton.addEventListener('click', hideStartRoutineModal);
+            }
+            // Close modal if user clicks outside of it
+            window.addEventListener('click', function(event) {
+                if (event.target == startRoutineModal) {
+                    hideStartRoutineModal();
+                }
+            });
+        }
+
+        // Helper function to get a random integer within a range
+        function getRandomInt(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        // Helper function for custom message box
+        function showMessageBox(message, duration = 3000) {
+            const msgBox = document.getElementById('customMessageBox');
+            msgBox.innerText = message;
+            msgBox.classList.add('show');
+            setTimeout(() => {
+                msgBox.classList.remove('show');
+            }, duration);
+        }
+
+        // --- Extractor Logic ---
+
+        // Function to navigate to and open the extractor configuration page
+        function showExtractorConfigPage(extractorId) {
+            currentEditingExtractorId = extractorId;
+            const mainControlPage = document.getElementById('main-control-page');
+            const formulasPage = document.getElementById('formulas-page');
+            const extractorConfigPage = document.getElementById('extractor-config-page');
+            const simulationPage = document.getElementById('simulation-page');
+
+            const configIngredientInput = document.getElementById('config-ingredient-input');
+            const configInertiaInput = document.getElementById('config-inertia-input');
+            const currentExtractorNameForConfig = document.getElementById('config-extractor-name');
+
+            const extractorData = extractorIngredients[extractorId];
+
+            currentExtractorNameForConfig.innerText = `Extractor S${extractorId + 1}`;
+            configIngredientInput.value = extractorData.name;
+            configInertiaInput.value = extractorData.inertia;
+
+            mainControlPage.style.display = 'none';
+            formulasPage.style.display = 'none';
+            simulationPage.style.display = 'none';
+            extractorConfigPage.style.display = 'block';
+        }
+
+        // Function to save extractor configuration
+        function saveExtractorConfig(newName, newInertia) {
+            if (currentEditingExtractorId !== -1) {
+                extractorIngredients[currentEditingExtractorId].name = newName.trim() || `Extractor S${currentEditingExtractorId + 1}`;
+                extractorIngredients[currentEditingExtractorId].inertia = isNaN(newInertia) ? 0 : newInertia;
+
+                localStorage.setItem('extractorIngredients', JSON.stringify(extractorIngredients));
+                updateExtractorStatus(); // Re-render main page extractors
+                showMessageBox("Configuración de extractor guardada.");
+                // Go back to main page after saving
+                document.getElementById('extractor-config-page').style.display = 'none';
+                document.getElementById('main-control-page').style.display = 'block';
+                currentEditingExtractorId = -1; // Reset edited extractor ID
+            }
+        }
+
+
+        // Main function to update extractor status display
+        function updateExtractorStatus() {
+            const extractorContainer = document.getElementById('extractor-info-display');
+            extractorContainer.innerHTML = ''; // Clear existing content
+
+            for (let i = 0; i < NUM_EXTRACTORS; i++) {
+                const temp = staticTemperatures[i];
+                const baseRpm = baseRpmValues[i];
+
+                // Simulate RPM with a very small variation (-1, 0, 1, or 2 RPM)
+                const rpmVariation = getRandomInt(-1, 2);
+                const currentRpm = baseRpm + rpmVariation;
+
+                const extractorData = extractorIngredients[i];
+                const extractorName = extractorData.name;
+                // Note: inertia is NOT displayed here
+
+                let cardClass = 'extractor-card';
+                // Add warning or critical classes based on temperature
+                if (temp > 60) {
+                    cardClass += ' critical'; // High temperature
+                } else if (temp > 50) {
+                    cardClass += ' warning'; // Elevated temperature
+                }
+
+                // Construct the HTML for each extractor card
+                // The onclick handler now calls showExtractorConfigPage
+                const extractorHtml = `
+                    <div class='${cardClass}' data-index='${i}' onclick='showExtractorConfigPage(${i})'>
+                        <strong>${extractorName}</strong>
+                        <div class='value-row'>
+                            <span class='value-label'>Temp:</span>
+                            <span class='value-display'>${temp} C°</span>
+                        </div>
+                        <div class='value-row'>
+                            <span class='value-label'>RPM:</span>
+                            <span class='value-display'>${currentRpm}</span>
+                        </div>
+                    </div>
+                `;
+                extractorContainer.innerHTML += extractorHtml;
+            }
+        }
+
+        // --- Weight Display Logic ---
+
+        // Function to start weight simulation
+        function startWeightSimulation() {
+            if (weightInterval) clearInterval(weightInterval); // Clear any existing interval
+            // Simulate initial non-zero weight for effect if needed
+            currentWeight = parseFloat((Math.random() * 5 + 0.1).toFixed(2)); // Start with a small random weight, 2 decimals
+            updateWeightDisplay();
+            weightInterval = setInterval(() => {
+                // Simulate slight fluctuation around the current weight
+                currentWeight += (Math.random() * 1 - 0.5); // Adds/subtracts between -0.5 and 0.5
+                if (currentWeight < 0) currentWeight = 0; // Prevent negative weight
+                updateWeightDisplay();
+            }, 500); // Update every 0.5 seconds
+        }
+
+        // Function to update the LCD weight display
+        function updateWeightDisplay() {
+            const weightDisplayElem = document.getElementById('weightDisplay');
+            if (weightDisplayElem) {
+                // Ensure 2 decimal places are always displayed
+                weightDisplayElem.innerText = `${currentWeight.toFixed(2)} kg`;
+                // Update balance weight display in simulation page if visible
+                const balanceWeightDisplay = document.getElementById('balance-weight-display');
+                if (balanceWeightDisplay) {
+                    balanceWeightDisplay.innerText = `${currentWeight.toFixed(2)} kg`;
+                }
+            }
+        }
+
+        // Function to tare the weight
+        function tareWeight() {
+            currentWeight = 0.0;
+            updateWeightDisplay();
+            showMessageBox("Tara aplicada. Peso reiniciado a 0.00 kg.");
+        }
+
+        // --- Formula Management Logic ---
+
+        // Function to render the formula input fields dynamically
+        function renderFormulasPage() {
+            const formulasFormContainer = document.getElementById('formulas-form-container');
+            formulasFormContainer.innerHTML = ''; // Clear existing content
+
+            for (let i = 0; i < NUM_EXTRACTORS; i++) {
+                const extractorData = extractorIngredients[i];
+                const ingredientName = extractorData.name; // Use stored name
+
+                const formulaFieldHtml = `
+                    <div class="param-group">
+                        <h3>${ingredientName}</h3>
+                        <label for="kgInput-${i}">Cantidad (kg):</label>
+                        <input type="number" id="kgInput-${i}" placeholder="0" min="0" value="0" />
+                    </div>
+                `;
+                formulasFormContainer.innerHTML += formulaFieldHtml;
+            }
+        }
+
+        // Function to save a formula
+        function saveFormula() {
+            const formulaNameInput = document.getElementById('formulaNameInput');
+            const formulaName = formulaNameInput.value.trim();
+
+            if (!formulaName) {
+                showMessageBox("Por favor, ingresa un nombre para la fórmula.");
+                return;
+            }
+
+            const formulaData = {
+                name: formulaName,
+                ingredients: {}
+            };
+
+            let allIngredientsEmpty = true;
+            for (let i = 0; i < NUM_EXTRACTORS; i++) {
+                const extractorData = extractorIngredients[i];
+                const ingredientName = extractorData.name; // Use stored name
+                const kgInput = document.getElementById(`kgInput-${i}`);
+                const kgValue = parseFloat(kgInput.value);
+
+                if (!isNaN(kgValue) && kgValue > 0) {
+                    formulaData.ingredients[ingredientName] = kgValue;
+                    allIngredientsEmpty = false;
+                }
+            }
+
+            if (allIngredientsEmpty) {
+                 showMessageBox("La fórmula no puede estar vacía. Por favor, ingresa al menos una cantidad de ingrediente.");
+                 return;
+            }
+
+            // Check if formula with this name already exists
+            const existingFormulaIndex = savedFormulas.findIndex(f => f.name === formulaName);
+            if (existingFormulaIndex > -1) {
+                // Update existing formula
+                savedFormulas[existingFormulaIndex] = formulaData;
+                showMessageBox(`Fórmula '${formulaName}' actualizada con éxito.`);
+            } else {
+                // Add new formula
+                savedFormulas.push(formulaData);
+                showMessageBox(`Fórmula '${formulaName}' guardada con éxito.`);
+            }
+
+            localStorage.setItem('savedFormulas', JSON.stringify(savedFormulas)); // Save to localStorage
+            formulaNameInput.value = ''; // Clear formula name input
+            renderFormulasPage(); // Reset kg inputs
+            renderSavedFormulas(); // Update the list of saved formulas
+        }
+
+        // Function to load formulas from localStorage
+        function loadFormulas() {
+            const storedFormulas = localStorage.getItem('savedFormulas');
+            if (storedFormulas) {
+                savedFormulas = JSON.parse(storedFormulas);
+            }
+        }
+
+        // Function to render the list of saved formulas
+        function renderSavedFormulas() {
+            const savedFormulasList = document.getElementById('saved-formulas-list');
+            savedFormulasList.innerHTML = ''; // Clear existing content
+
+            if (savedFormulas.length === 0) {
+                savedFormulasList.innerHTML = '<p style="text-align: center; color: #aaa;">No hay fórmulas guardadas.</p>';
+                return;
+            }
+
+            savedFormulas.forEach((formula, index) => {
+                const formulaItem = document.createElement('div');
+                formulaItem.classList.add('routine-list-item');
+                formulaItem.style.display = 'flex';
+                formulaItem.style.justifyContent = 'space-between';
+                formulaItem.style.alignItems = 'center';
+
+                let ingredientsSummary = Object.entries(formula.ingredients)
+                    .map(([name, kg]) => `${name}: ${kg}kg`)
+                    .join(', ');
+                if (ingredientsSummary.length > 50) { // Truncate if too long
+                    ingredientsSummary = ingredientsSummary.substring(0, 47) + '...';
+                }
+
+                formulaItem.innerHTML = `
+                    <div>
+                        <strong>${formula.name}</strong><br>
+                        <span style="font-size: 0.85em; color: #999;">Ingredientes: ${ingredientsSummary || 'Ninguno'}</span>
+                    </div>
+                    <div class="button-group" style="margin: 0;">
+                        <button class="button-link button-green" onclick="showStartRoutineModal('${formula.name}')">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" style='vertical-align: middle; margin-right: 6px;'>
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                <path d="M7 4v16l13 -8z" />
+                            </svg>
+                            Iniciar Rutina
+                        </button>
+                        <button class="button-link button-red" onclick="deleteFormula(${index})">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" style='vertical-align: middle; margin-right: 6px;'>
+                               <path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 7l16 0" /><path d="M10 11l0 6" /><path d="M14 11l0 6" /><path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" /><path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+                            </svg>
+                            Eliminar
+                        </button>
+                    </div>
+                `;
+                savedFormulasList.appendChild(formulaItem);
+            });
+        }
+
+        // Function to delete a formula with custom confirmation
+        function deleteFormula(index) {
+            showMessageBox(`¿Estás seguro de que quieres eliminar la fórmula '${savedFormulas[index].name}'?`, 0); // Show indefinitely until action
+            const msgBox = document.getElementById('customMessageBox');
+            msgBox.innerHTML += `
+                <div class="button-group" style="margin-top: 15px; justify-content: center;">
+                    <button class="button-link button-red" onclick="confirmDeleteFormula(${index}, true)">Sí</button>
+                    <button class="button-link button-grey" onclick="confirmDeleteFormula(${index}, false)">No</button>
+                </div>
+            `;
+        }
+
+        function confirmDeleteFormula(index, confirmed) {
+            const msgBox = document.getElementById('customMessageBox');
+            msgBox.classList.remove('show');
+            msgBox.innerHTML = ''; // Clear message box content
+
+            if (confirmed) {
+                savedFormulas.splice(index, 1);
+                localStorage.setItem('savedFormulas', JSON.stringify(savedFormulas));
+                renderSavedFormulas();
+                showMessageBox("Fórmula eliminada con éxito.");
+            }
+        }
+
+
+        // --- Start Routine Modal Logic ---
+
+        // Function to show the start routine modal
+        function showStartRoutineModal(preSelectedFormulaName = null) {
+            const modal = document.getElementById('startRoutineModal');
+            const selectFormula = document.getElementById('selectFormula');
+            selectFormula.innerHTML = ''; // Clear previous options
+
+            if (savedFormulas.length === 0) {
+                selectFormula.innerHTML = '<option value="">No hay fórmulas disponibles</option>';
+                // Optionally disable the start button if no formulas
+                document.getElementById('startRoutineButton').disabled = true;
+            } else {
+                document.getElementById('startRoutineButton').disabled = false;
+                savedFormulas.forEach(formula => {
+                    const option = document.createElement('option');
+                    option.value = formula.name;
+                    option.innerText = formula.name;
+                    selectFormula.appendChild(option);
+                });
+
+                // Pre-select a formula if one was passed
+                if (preSelectedFormulaName) {
+                    selectFormula.value = preSelectedFormulaName;
+                }
+            }
+
+            document.getElementById('targetKilograms').value = 0; // Reset kilograms input
+            modal.style.display = 'flex'; // Show the modal
+        }
+
+        // Function to hide the start routine modal
+        function hideStartRoutineModal() {
+            const modal = document.getElementById('startRoutineModal');
+            modal.style.display = 'none';
+        }
+
+        // Function to initiate the routine
+        function startRoutine() {
+            const selectedFormulaName = document.getElementById('selectFormula').value;
+            const targetKilograms = parseFloat(document.getElementById('targetKilograms').value);
+
+            if (!selectedFormulaName) {
+                showMessageBox("Por favor, selecciona una fórmula.");
+                return;
+            }
+            if (isNaN(targetKilograms) || targetKilograms <= 0) {
+                showMessageBox("Por favor, ingresa una cantidad de kilogramos válida (> 0).");
+                return;
+            }
+
+            const selectedFormula = savedFormulas.find(f => f.name === selectedFormulaName);
+
+            if (selectedFormula) {
+                const confirmationMessage = `Iniciando rutina con la fórmula '${selectedFormula.name}' para producir ${targetKilograms} kg.
+                Ingredientes necesarios: ${Object.entries(selectedFormula.ingredients).map(([name, kg]) => `${name}: ${kg}kg`).join(', ')}`;
+                showMessageBox(confirmationMessage, 5000); // Show for a longer duration
+
+                // --- Simulation of routine start (placeholder) ---
+                console.log("Rutina Iniciada:");
+                console.log("Fórmula:", selectedFormula);
+                console.log("Kilogramos a producir:", targetKilograms);
+
+                // Here, you would implement the actual logic to control the extractors
+                // based on the formula and target kilograms, taking inertia into account.
+                // For demonstration, we'll just log it.
+
+                hideStartRoutineModal(); // Close the modal
+            } else {
+                showMessageBox("Error: Fórmula seleccionada no encontrada.");
+            }
+        }
+
+        // --- Simulation Page Logic ---
+
+        // Function to render the current state of simulation components
+        function renderSimulationState() {
+            // Update visual state of SVG components based on simulationComponents object
+            for (const id in simulationComponents) {
+                const component = document.getElementById(id);
+                if (component) {
+                    if (simulationComponents[id].active) {
+                        component.classList.add('active');
+                    } else {
+                        component.classList.remove('active');
+                    }
+                    // Handle fill levels if applicable (e.g., for silos, pulmones, mezcladora)
+                    if (simulationComponents[id].fill !== undefined) {
+                        // For a simple visual, we can change fill color based on level
+                        if (simulationComponents[id].fill > 80) {
+                            component.classList.add('critical-level');
+                            component.classList.remove('warning-level');
+                        } else if (simulationComponents[id].fill > 40) {
+                            component.classList.add('warning-level');
+                            component.classList.remove('critical-level');
+                        } else {
+                            component.classList.remove('warning-level', 'critical-level');
+                        }
+                    }
+                }
+            }
+        }
+
+        // Function to toggle a component's state
+        function toggleComponent(componentId) {
+            const component = simulationComponents[componentId];
+            if (!component) return;
+
+            // Apply dependencies based on the provided description
+            if (componentId === 'component-15') { // Extractor de Balanza (15)
+                if (!simulationComponents['component-8'].active) {
+                    showMessageBox("Error: La Noria Balanza (8) debe estar encendida para operar el Extractor de Balanza (15).");
+                    return;
+                }
+            } else if (componentId === 'component-14' || componentId === 'component-16') { // Extractores de Molino (14, 16)
+                if (!simulationComponents['component-7'].active) {
+                    showMessageBox("Error: El Elevador Molino (7) debe estar encendido para operar el Extractor de Molino.");
+                    return;
+                }
+            } else if (componentId === 'component-13') { // Extractor de Mezcladora (13)
+                if (!simulationComponents['component-12'].active) {
+                    showMessageBox("Error: La Noria Mezcladora (12) debe estar encendida para operar el Extractor de Mezcladora (13).");
+                    return;
+                }
+            }
+
+            component.active = !component.active;
+            renderSimulationState();
+            showMessageBox(`${component.label}: ${component.active ? 'ENCENDIDO' : 'APAGADO'}`);
+
+            // Special logic for Alimentador de Molino (10) RPM
+            if (componentId === 'component-10') {
+                if (component.active) {
+                    component.rpm = 15; // Set a default RPM when active
+                    showMessageBox(`Alimentador Molino (10): RPM a 15`);
+                } else {
+                    component.rpm = 0;
+                }
+            }
+
+            // Simulate weight change for Balanza (5) if Extractor Balanza (15) is active
+            if (componentId === 'component-15') {
+                if (component.active) {
+                    // Simulate material flowing OUT of the balance
+                    if (weightInterval) clearInterval(weightInterval); // Stop current weight fluctuation
+                    weightInterval = setInterval(() => {
+                        currentWeight -= (Math.random() * 0.2 + 0.1); // Decrease weight
+                        if (currentWeight < 0) currentWeight = 0;
+                        updateWeightDisplay();
+                        if (currentWeight <= 0) {
+                            clearInterval(weightInterval);
+                            weightInterval = null;
+                            showMessageBox("Balanza vacía.");
+                            component.active = false; // Turn off extractor once empty
+                            renderSimulationState();
+                        }
+                    }, 200); // Faster update for material flow
+                } else {
+                    // If extractor turns off, resume normal weight fluctuation
+                    startWeightSimulation();
+                }
+            }
+
+            // For Silo Extractors (ext-silo-X) - simulate material flowing IN to balance
+            if (componentId.startsWith('ext-silo-')) {
+                const extractorIndex = parseInt(componentId.replace('ext-silo-', ''));
+                const currentExtractorState = simulationComponents[componentId].active; // State *after* toggle
+
+                if (currentExtractorState) { // If just turned ON
+                    // Stop current weight fluctuation if it's not already flowing in
+                    if (weightInterval) clearInterval(weightInterval);
+                    weightInterval = setInterval(() => {
+                        currentWeight += (Math.random() * 0.5 + 0.2); // Increase weight
+                        if (currentWeight > 1000) currentWeight = 1000; // Max balance weight
+                        updateWeightDisplay();
+                    }, 100);
+                } else { // If just turned OFF
+                    // Check if ANY other silo extractor is still active
+                    const anySiloExtractorActive = Array.from({length: NUM_EXTRACTORS}, (_, i) => `ext-silo-${i}`)
+                                                    .some(id => simulationComponents[id] && simulationComponents[id].active);
+                    if (!anySiloExtractorActive) {
+                        // If no other silo extractors are active, resume normal fluctuation
+                        startWeightSimulation();
+                    }
+                }
+            }
+        }
+
+        // Function to set up dynamic buttons for simulation components
+        function setupSimulationControls() {
+            const simulationPageDiv = document.getElementById('simulation-page');
+            const controlGroup = simulationPageDiv.querySelector('.control-group');
+            const backButtonDiv = controlGroup.querySelector('.button-group');
+
+            // Create a new div to hold the component control buttons
+            const componentControlsDiv = document.createElement('div');
+            componentControlsDiv.id = 'component-controls';
+            controlGroup.insertBefore(componentControlsDiv, backButtonDiv); // Insert before the back button group
+
+
+            const componentsToControl = [
+                { id: 'component-8', label: 'Noria Balanza (8)' },
+                { id: 'component-15', label: 'Extractor Balanza (15)' },
+                { id: 'component-7', label: 'Elevador Molino (7)' },
+                { id: 'component-14', label: 'Extractor Molino (14)' },
+                { id: 'component-16', label: 'Extractor Molino (16)' },
+                { id: 'component-10', label: 'Alimentador Molino (10)' },
+                { id: 'component-3', label: 'Abre Mezcladora (3)' },
+                { id: 'component-11', label: 'Paso Mezcladora (11)' },
+                { id: 'component-12', label: 'Noria Mezcladora (12)' },
+                { id: 'component-13', label: 'Extractor Mezcladora (13)' }
+            ];
+
+            // Add controls for Silo Extractors (S1-S11)
+            for (let i = 0; i < NUM_EXTRACTORS; i++) {
+                componentsToControl.unshift({ id: `ext-silo-${i}`, label: `Ext. ${extractorIngredients[i].name}` }); // Add at the beginning
+            }
+
+            componentControlsDiv.innerHTML = ''; // Clear previous controls if any
+            componentsToControl.forEach(comp => {
+                const controlDiv = document.createElement('div');
+                controlDiv.classList.add('component-control');
+                controlDiv.style.marginBottom = '10px';
+
+                const currentComponentState = simulationComponents[comp.id]?.active || false;
+                const statusClass = currentComponentState ? 'status-on' : 'status-off';
+                const statusText = currentComponentState ? 'ENCENDIDO' : 'APAGADO';
+
+                controlDiv.innerHTML = `
+                    <h3 style="margin-bottom: 5px;">${comp.label}</h3>
+                    <div class="component-button-group">
+                        <button class="button-link button-green" onclick="toggleComponent('${comp.id}')">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" style='vertical-align: middle; margin-right: 4px;'>
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                <path d="M7 4v16l13 -8z" />
+                            </svg>
+                            ON/OFF
+                        </button>
+                    </div>
+                    <div class="component-status-display">Estado: <span id="status-${comp.id}" class="${statusClass}">${statusText}</span></div>
+                `;
+                componentControlsDiv.appendChild(controlDiv);
+
+                // Add RPM control for Alimentador Molino (10)
+                if (comp.id === 'component-10') {
+                    const rpmControlDiv = document.createElement('div');
+                    rpmControlDiv.innerHTML = `
+                        <label for="rpm-range-${comp.id}" style="margin-top: 5px;">RPM: <span id="rpm-value-${comp.id}">${simulationComponents[comp.id].rpm}</span></label>
+                        <input type="range" id="rpm-range-${comp.id}" min="0" max="20" value="${simulationComponents[comp.id].rpm}" step="1" oninput="updateRpm('${comp.id}', this.value)">
+                    `;
+                    controlDiv.appendChild(rpmControlDiv);
+                }
+            });
+
+            // Update status displays initially
+            updateAllComponentStatusDisplays();
+        }
+
+        // Function to update the RPM of Alimentador Molino (10)
+        function updateRpm(componentId, value) {
+            const component = simulationComponents[componentId];
+            if (component) {
+                component.rpm = parseInt(value);
+                document.getElementById(`rpm-value-${componentId}`).innerText = component.rpm;
+                showMessageBox(`${component.label}: RPM a ${component.rpm}`);
+            }
+        }
+
+        // Helper function to update the status text of all components
+        function updateAllComponentStatusDisplays() {
+            for (const id in simulationComponents) {
+                const statusSpan = document.getElementById(`status-${id}`);
+                if (statusSpan) {
+                    statusSpan.innerText = simulationComponents[id].active ? 'ENCENDIDO' : 'APAGADO';
+                    statusSpan.className = simulationComponents[id].active ? 'status-on' : 'status-off';
+                }
+            }
+        }
+
+        // Override the default toggleComponent to also update status display
+        const originalToggleComponent = toggleComponent;
+        toggleComponent = function(componentId) {
+            originalToggleComponent(componentId);
+            const statusSpan = document.getElementById(`status-${componentId}`);
+            if (statusSpan) {
+                statusSpan.innerText = simulationComponents[componentId].active ? 'ENCENDIDO' : 'APAGADO';
+                statusSpan.className = simulationComponents[componentId].active ? 'status-on' : 'status-off';
+            }
+        };
+
+    </script>
+</body>
+</html>
